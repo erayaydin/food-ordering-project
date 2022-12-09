@@ -17,7 +17,7 @@ public class Product extends org.apache.avro.specific.SpecificRecordBase impleme
   private static final long serialVersionUID = 988573210782935377L;
 
 
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Product\",\"namespace\":\"in.yayd.era.food.ordering.project.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"avro.java.string\":\"String\"},\"logicalType\":\"uuid\"},{\"name\":\"quantity\",\"type\":\"int\"}]}");
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Product\",\"namespace\":\"in.yayd.era.food.ordering.project.kafka.order.avro.model\",\"fields\":[{\"name\":\"id\",\"type\":{\"type\":\"string\",\"logicalType\":\"uuid\"}},{\"name\":\"quantity\",\"type\":\"int\"}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static final SpecificData MODEL$ = new SpecificData();
@@ -102,6 +102,18 @@ public class Product extends org.apache.avro.specific.SpecificRecordBase impleme
     case 1: return quantity;
     default: throw new IndexOutOfBoundsException("Invalid index: " + field$);
     }
+  }
+
+  private static final org.apache.avro.Conversion<?>[] conversions =
+      new org.apache.avro.Conversion<?>[] {
+      null,
+      null,
+      null
+  };
+
+  @Override
+  public org.apache.avro.Conversion<?> getConversion(int field) {
+    return conversions[field];
   }
 
   // Used by DatumReader.  Applications should not call.
@@ -342,43 +354,6 @@ public class Product extends org.apache.avro.specific.SpecificRecordBase impleme
     READER$.read(this, SpecificData.getDecoder(in));
   }
 
-  @Override protected boolean hasCustomCoders() { return true; }
-
-  @Override public void customEncode(org.apache.avro.io.Encoder out)
-    throws java.io.IOException
-  {
-    out.writeString(this.id);
-
-    out.writeInt(this.quantity);
-
-  }
-
-  @Override public void customDecode(org.apache.avro.io.ResolvingDecoder in)
-    throws java.io.IOException
-  {
-    org.apache.avro.Schema.Field[] fieldOrder = in.readFieldOrderIfDiff();
-    if (fieldOrder == null) {
-      this.id = in.readString();
-
-      this.quantity = in.readInt();
-
-    } else {
-      for (int i = 0; i < 2; i++) {
-        switch (fieldOrder[i].pos()) {
-        case 0:
-          this.id = in.readString();
-          break;
-
-        case 1:
-          this.quantity = in.readInt();
-          break;
-
-        default:
-          throw new java.io.IOException("Corrupt ResolvingDecoder.");
-        }
-      }
-    }
-  }
 }
 
 

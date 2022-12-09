@@ -1,8 +1,8 @@
 package in.yayd.era.food.ordering.project.order.service.data.access.restaurant.adapter;
 
-import in.yayd.era.food.ordering.project.order.service.data.access.restaurant.entity.RestaurantEntity;
+import in.yayd.era.food.ordering.project.data.access.restaurant.entity.RestaurantEntity;
+import in.yayd.era.food.ordering.project.data.access.restaurant.repository.RestaurantJpaRepository;
 import in.yayd.era.food.ordering.project.order.service.data.access.restaurant.mapper.RestaurantDataAccessMapper;
-import in.yayd.era.food.ordering.project.order.service.data.access.restaurant.repository.RestaurantJpaRepository;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.Restaurant;
 import in.yayd.era.food.ordering.project.order.service.domain.ports.output.repository.RestaurantRepository;
 import org.springframework.stereotype.Component;
