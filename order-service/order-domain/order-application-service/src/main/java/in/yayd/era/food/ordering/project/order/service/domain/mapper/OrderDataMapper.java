@@ -7,6 +7,7 @@ import in.yayd.era.food.ordering.project.domain.valueobject.RestaurantId;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.create.CreateOrderCommand;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.create.CreateOrderResponse;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.create.OrderAddress;
+import in.yayd.era.food.ordering.project.order.service.domain.dto.track.TrackOrderResponse;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.Order;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.OrderItem;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.Product;
@@ -40,11 +41,20 @@ public class OrderDataMapper {
                 .build();
     }
 
-    public CreateOrderResponse orderToCreateOrderResponse(Order order)
+    public CreateOrderResponse orderToCreateOrderResponse(Order order, String message)
     {
         return CreateOrderResponse.builder()
                 .orderTrackingId(order.getTrackingId().getValue())
                 .orderStatus(order.getOrderStatus())
+                .message(message)
+                .build();
+    }
+
+    public TrackOrderResponse orderToTrackOrderResponse(Order order) {
+        return TrackOrderResponse.builder()
+                .orderTrackingId(order.getTrackingId().getValue())
+                .orderStatus(order.getOrderStatus())
+                .failureMessages(order.getFailureMessages())
                 .build();
     }
 

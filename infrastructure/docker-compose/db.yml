@@ -1,0 +1,40 @@
+version: '3.7'
+
+services:
+  order-db:
+    image: postgres:${POSTGRES_VERSION}
+    ports:
+      - '${FORWARD_DB_PORT:-5432}:5432'
+    environment:
+      PGPASSWORD: '${ORDER_DB_PASSWORD:-secret}'
+      POSTGRES_DB: '${ORDER_DB_DATABASE}'
+      POSTGRES_USER: '${ORDER_DB_USERNAME}'
+      POSTGRES_PASSWORD: '${ORDER_DB_PASSWORD:-secret}'
+    healthcheck:
+      test: [ "CMD", "pg_isready", "-q", "-d", "${ORDER_DB_DATABASE}", "-U", "${ORDER_DB_USERNAME}" ]
+      interval: 1s
+      timeout: 5s
+      retries: 10
+    volumes:
+      - ./volumes/order-db:/var/lib/postgresql/data
+    networks:
+      - postgres
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@domain.tld
+      PGADMIN_DEFAULT_PASSWORD: secret
+    ports:
+      - "8080:80"
+    volumes:
+      - ./volumes/pgadmin:/var/lib/pgadmin
+    depends_on:
+      - order-db
+    links:
+      - "order-db:pgsql-server"
+    networks:
+      - postgres
+
+networks:
+  postgres:
+    driver: bridge
