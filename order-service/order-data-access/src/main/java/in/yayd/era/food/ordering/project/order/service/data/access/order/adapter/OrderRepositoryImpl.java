@@ -1,5 +1,6 @@
 package in.yayd.era.food.ordering.project.order.service.data.access.order.adapter;
 
+import in.yayd.era.food.ordering.project.domain.valueobject.OrderId;
 import in.yayd.era.food.ordering.project.order.service.data.access.order.mapper.OrderDataAccessMapper;
 import in.yayd.era.food.ordering.project.order.service.data.access.order.repository.OrderJpaRepository;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.Order;
@@ -25,6 +26,11 @@ public class OrderRepositoryImpl implements OrderRepository {
         return orderDataAccessMapper.orderEntityToOrder(
                 orderJpaRepository.save(orderDataAccessMapper.orderToOrderEntity(order))
         );
+    }
+
+    @Override
+    public Optional<Order> findById(OrderId orderId) {
+        return orderJpaRepository.findById(orderId.getValue()).map(orderDataAccessMapper::orderEntityToOrder);
     }
 
     @Override

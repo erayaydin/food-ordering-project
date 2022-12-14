@@ -71,7 +71,7 @@ TABLESPACE pg_default
 AS
 SELECT r.id AS restaurant_id,
        r.name AS restaurant_name,
-       r.active AS restaurant_active,
+       r.active AS restaurant_is_active,
        p.id AS product_id,
        p.name AS product_name,
        p.price AS product_price,

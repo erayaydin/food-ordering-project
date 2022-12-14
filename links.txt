@@ -1,0 +1,9 @@
+Kafka Cluster Manager: http://localhost:9000
+
+PGAdmin: http://localhost:8080
+- PGADMIN_DEFAULT_EMAIL: admin@domain.tld
+- PGADMIN_DEFAULT_PASSWORD: secret
+
+Order Service Rest API: http://localhost:8181/orders
+
+Kowl: http://localhost:8282

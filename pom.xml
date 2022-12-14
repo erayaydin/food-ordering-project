@@ -6,7 +6,7 @@
     <modules>
         <module>order-service</module>
         <module>common</module>
-        <module>infrastructure/kafka</module>
+        <module>infrastructure</module>
         <module>customer-service</module>
         <module>payment-service</module>
         <module>restaurant-service</module>
@@ -35,6 +35,11 @@
 
     <dependencyManagement>
         <dependencies>
+            <dependency>
+                <groupId>in.yayd.era.food.ordering.project</groupId>
+                <artifactId>saga</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <dependency>
                 <groupId>in.yayd.era.food.ordering.project</groupId>
                 <artifactId>order-domain-core</artifactId>
