@@ -5,18 +5,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>in.yayd.era.food.ordering.project</groupId>
-        <artifactId>food-ordering-project</artifactId>
+        <artifactId>infrastructure</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>infrastructure</artifactId>
-    <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
-    <modules>
-        <module>kafka</module>
-        <module>saga</module>
-        <module>outbox</module>
-    </modules>
+    <artifactId>outbox</artifactId>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

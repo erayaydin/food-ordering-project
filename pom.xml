@@ -42,6 +42,11 @@
             </dependency>
             <dependency>
                 <groupId>in.yayd.era.food.ordering.project</groupId>
+                <artifactId>outbox</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>in.yayd.era.food.ordering.project</groupId>
                 <artifactId>order-domain-core</artifactId>
                 <version>${project.version}</version>
             </dependency>
