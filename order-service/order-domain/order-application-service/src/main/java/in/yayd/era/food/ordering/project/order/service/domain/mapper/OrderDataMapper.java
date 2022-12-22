@@ -1,9 +1,6 @@
 package in.yayd.era.food.ordering.project.order.service.domain.mapper;
 
-import in.yayd.era.food.ordering.project.domain.valueobject.CustomerId;
-import in.yayd.era.food.ordering.project.domain.valueobject.Money;
-import in.yayd.era.food.ordering.project.domain.valueobject.ProductId;
-import in.yayd.era.food.ordering.project.domain.valueobject.RestaurantId;
+import in.yayd.era.food.ordering.project.domain.valueobject.*;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.create.CreateOrderCommand;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.create.CreateOrderResponse;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.create.OrderAddress;
@@ -12,6 +9,12 @@ import in.yayd.era.food.ordering.project.order.service.domain.entity.Order;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.OrderItem;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.Product;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.Restaurant;
+import in.yayd.era.food.ordering.project.order.service.domain.event.OrderCancelledEvent;
+import in.yayd.era.food.ordering.project.order.service.domain.event.OrderCreatedEvent;
+import in.yayd.era.food.ordering.project.order.service.domain.event.OrderPaidEvent;
+import in.yayd.era.food.ordering.project.order.service.domain.outbox.model.approval.OrderApprovalEventPayload;
+import in.yayd.era.food.ordering.project.order.service.domain.outbox.model.approval.OrderApprovalEventProduct;
+import in.yayd.era.food.ordering.project.order.service.domain.outbox.model.payment.OrderPaymentEventPayload;
 import in.yayd.era.food.ordering.project.order.service.domain.valueobject.StreetAddress;
 import org.springframework.stereotype.Component;
 
@@ -55,6 +58,44 @@ public class OrderDataMapper {
                 .orderTrackingId(order.getTrackingId().getValue())
                 .orderStatus(order.getOrderStatus())
                 .failureMessages(order.getFailureMessages())
+                .build();
+    }
+
+    public OrderPaymentEventPayload orderCreatedEventToOrderPaymentEventPayload(OrderCreatedEvent orderCreatedEvent) {
+        return OrderPaymentEventPayload.builder()
+                .customerId(orderCreatedEvent.getOrder().getCustomerId().getValue().toString())
+                .orderId(orderCreatedEvent.getOrder().getId().getValue().toString())
+                .price(orderCreatedEvent.getOrder().getPrice().getAmount())
+                .createdAt(orderCreatedEvent.getCreatedAt())
+                .paymentOrderStatus(PaymentOrderStatus.PENDING.name())
+                .build();
+    }
+
+    public OrderPaymentEventPayload orderCancelledEventToOrderPaymentEvent(OrderCancelledEvent orderCancelledEvent) {
+        return OrderPaymentEventPayload.builder()
+                .customerId(orderCancelledEvent.getOrder().getCustomerId().getValue().toString())
+                .orderId(orderCancelledEvent.getOrder().getId().getValue().toString())
+                .price(orderCancelledEvent.getOrder().getPrice().getAmount())
+                .createdAt(orderCancelledEvent.getCreatedAt())
+                .paymentOrderStatus(PaymentOrderStatus.CANCELLED.name())
+                .build();
+    }
+
+    public OrderApprovalEventPayload orderPaidEventToOrderApprovalEventPayload(OrderPaidEvent orderPaidEvent) {
+        return OrderApprovalEventPayload.builder()
+                .orderId(orderPaidEvent.getOrder().getId().getValue().toString())
+                .restaurantId(orderPaidEvent.getOrder().getRestaurantId().getValue().toString())
+                .restaurantOrderStatus(RestaurantOrderStatus.PAID.name())
+                .products(
+                        orderPaidEvent.getOrder().getItems().stream().map(orderItem ->
+                                OrderApprovalEventProduct.builder()
+                                        .id(orderItem.getProduct().getId().getValue().toString())
+                                        .quantity(orderItem.getQuantity())
+                                        .build()
+                        ).collect(Collectors.toList())
+                )
+                .price(orderPaidEvent.getOrder().getPrice().getAmount())
+                .createdAt(orderPaidEvent.getCreatedAt())
                 .build();
     }
 

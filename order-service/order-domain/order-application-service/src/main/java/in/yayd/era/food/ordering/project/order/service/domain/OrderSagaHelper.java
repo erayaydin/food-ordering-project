@@ -1,9 +1,11 @@
 package in.yayd.era.food.ordering.project.order.service.domain;
 
 import in.yayd.era.food.ordering.project.domain.valueobject.OrderId;
+import in.yayd.era.food.ordering.project.domain.valueobject.OrderStatus;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.Order;
 import in.yayd.era.food.ordering.project.order.service.domain.exception.OrderNotFoundException;
 import in.yayd.era.food.ordering.project.order.service.domain.ports.output.repository.OrderRepository;
+import in.yayd.era.food.ordering.project.saga.SagaStatus;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +35,16 @@ public class OrderSagaHelper {
 
     void saveOrder(Order order) {
         orderRepository.save(order);
+    }
+
+    SagaStatus orderStatusToSagaStatus(OrderStatus orderStatus) {
+        return switch (orderStatus) {
+            case PENDING -> SagaStatus.STARTED;
+            case PAID -> SagaStatus.PROCESSING;
+            case APPROVED -> SagaStatus.SUCCEEDED;
+            case CANCELLING -> SagaStatus.COMPENSATING;
+            case CANCELLED -> SagaStatus.COMPENSATED;
+        };
     }
 
 }

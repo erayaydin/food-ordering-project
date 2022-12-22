@@ -1,18 +1,18 @@
 package in.yayd.era.food.ordering.project.order.service.messaging.publisher.kafka;
 
+import in.yayd.era.food.ordering.project.domain.event.publisher.DomainEventPublisher;
 import in.yayd.era.food.ordering.project.kafka.order.avro.model.PaymentRequestAvroModel;
 import in.yayd.era.food.ordering.project.kafka.producer.KafkaMessageHelper;
 import in.yayd.era.food.ordering.project.kafka.producer.service.KafkaProducer;
 import in.yayd.era.food.ordering.project.order.service.domain.config.OrderServiceConfigData;
 import in.yayd.era.food.ordering.project.order.service.domain.event.OrderCreatedEvent;
-import in.yayd.era.food.ordering.project.order.service.domain.ports.output.message.publisher.payment.OrderCreatedPaymentRequestMessagePublisher;
 import in.yayd.era.food.ordering.project.order.service.messaging.mapper.OrderMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class CreateOrderKafkaMessagePublisher implements OrderCreatedPaymentRequestMessagePublisher {
+public class CreateOrderKafkaMessagePublisher implements DomainEventPublisher<OrderCreatedEvent> {
 
     private final OrderMessagingDataMapper orderMessagingDataMapper;
     private final OrderServiceConfigData orderServiceConfigData;
