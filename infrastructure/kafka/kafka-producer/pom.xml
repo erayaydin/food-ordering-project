@@ -18,6 +18,10 @@
     <dependencies>
         <dependency>
             <groupId>in.yayd.era.food.ordering.project</groupId>
+            <artifactId>outbox</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>in.yayd.era.food.ordering.project</groupId>
             <artifactId>kafka-model</artifactId>
         </dependency>
         <dependency>
