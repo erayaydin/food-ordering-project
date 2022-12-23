@@ -9,6 +9,7 @@ import in.yayd.era.food.ordering.project.payment.service.domain.entity.CreditHis
 import in.yayd.era.food.ordering.project.payment.service.domain.entity.Payment;
 import in.yayd.era.food.ordering.project.payment.service.domain.event.PaymentEvent;
 import in.yayd.era.food.ordering.project.payment.service.domain.exception.PaymentApplicationServiceException;
+import in.yayd.era.food.ordering.project.payment.service.domain.exception.PaymentNotFoundException;
 import in.yayd.era.food.ordering.project.payment.service.domain.mapper.PaymentDataMapper;
 import in.yayd.era.food.ordering.project.payment.service.domain.outbox.model.OrderOutboxMessage;
 import in.yayd.era.food.ordering.project.payment.service.domain.outbox.scheduler.OrderOutboxHelper;
@@ -92,7 +93,7 @@ public class PaymentRequestHelper {
         Optional<Payment> maybePayment = paymentRepository.findByOrderId(UUID.fromString(paymentRequest.getOrderId()));
         if (maybePayment.isEmpty()) {
             log.error("Payment with order id: {} could not be found!", paymentRequest.getOrderId());
-            throw new PaymentApplicationServiceException("Payment with order id: " + paymentRequest.getOrderId() + " could not be found!");
+            throw new PaymentNotFoundException("Payment with order id: " + paymentRequest.getOrderId() + " could not be found!");
         }
         Payment payment = maybePayment.get();
         CreditEntry creditEntry = getCreditEntry(payment.getCustomerId());

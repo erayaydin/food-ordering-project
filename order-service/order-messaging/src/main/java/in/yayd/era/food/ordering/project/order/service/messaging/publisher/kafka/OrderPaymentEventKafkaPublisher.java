@@ -1,12 +1,9 @@
 package in.yayd.era.food.ordering.project.order.service.messaging.publisher.kafka;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import in.yayd.era.food.ordering.project.kafka.order.avro.model.PaymentRequestAvroModel;
 import in.yayd.era.food.ordering.project.kafka.producer.KafkaMessageHelper;
 import in.yayd.era.food.ordering.project.kafka.producer.service.KafkaProducer;
 import in.yayd.era.food.ordering.project.order.service.domain.config.OrderServiceConfigData;
-import in.yayd.era.food.ordering.project.order.service.domain.exception.OrderDomainException;
 import in.yayd.era.food.ordering.project.order.service.domain.outbox.model.payment.OrderPaymentEventPayload;
 import in.yayd.era.food.ordering.project.order.service.domain.outbox.model.payment.OrderPaymentOutboxMessage;
 import in.yayd.era.food.ordering.project.order.service.domain.ports.output.message.publisher.payment.PaymentRequestMessagePublisher;
