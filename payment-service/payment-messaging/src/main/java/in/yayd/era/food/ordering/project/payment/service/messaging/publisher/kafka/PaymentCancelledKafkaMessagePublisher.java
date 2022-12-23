@@ -1,20 +1,18 @@
 package in.yayd.era.food.ordering.project.payment.service.messaging.publisher.kafka;
 
+import in.yayd.era.food.ordering.project.domain.event.publisher.DomainEventPublisher;
 import in.yayd.era.food.ordering.project.kafka.order.avro.model.PaymentResponseAvroModel;
 import in.yayd.era.food.ordering.project.kafka.producer.KafkaMessageHelper;
 import in.yayd.era.food.ordering.project.kafka.producer.service.KafkaProducer;
 import in.yayd.era.food.ordering.project.payment.service.domain.config.PaymentServiceConfigData;
 import in.yayd.era.food.ordering.project.payment.service.domain.event.PaymentCancelledEvent;
-import in.yayd.era.food.ordering.project.payment.service.domain.event.PaymentCompletedEvent;
-import in.yayd.era.food.ordering.project.payment.service.domain.ports.output.message.publisher.PaymentCancelledMessagePublisher;
-import in.yayd.era.food.ordering.project.payment.service.domain.ports.output.message.publisher.PaymentCompletedMessagePublisher;
 import in.yayd.era.food.ordering.project.payment.service.messaging.mapper.PaymentMessagingDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class PaymentCancelledKafkaMessagePublisher implements PaymentCancelledMessagePublisher {
+public class PaymentCancelledKafkaMessagePublisher implements DomainEventPublisher<PaymentCancelledEvent> {
 
     private final PaymentMessagingDataMapper paymentMessagingDataMapper;
     private final KafkaProducer<String, PaymentResponseAvroModel> kafkaProducer;
