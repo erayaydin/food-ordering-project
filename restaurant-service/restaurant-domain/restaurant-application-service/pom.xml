@@ -14,6 +14,14 @@
     <dependencies>
         <dependency>
             <groupId>in.yayd.era.food.ordering.project</groupId>
+            <artifactId>outbox</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>in.yayd.era.food.ordering.project</groupId>
+            <artifactId>saga</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>in.yayd.era.food.ordering.project</groupId>
             <artifactId>restaurant-domain-core</artifactId>
         </dependency>
         <dependency>
@@ -27,6 +35,10 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-tx</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-json</artifactId>
         </dependency>
     </dependencies>
 

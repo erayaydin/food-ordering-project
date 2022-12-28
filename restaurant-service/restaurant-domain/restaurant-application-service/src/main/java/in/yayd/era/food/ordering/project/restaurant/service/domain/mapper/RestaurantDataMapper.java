@@ -8,6 +8,8 @@ import in.yayd.era.food.ordering.project.restaurant.service.domain.dto.Restauran
 import in.yayd.era.food.ordering.project.restaurant.service.domain.entity.OrderDetail;
 import in.yayd.era.food.ordering.project.restaurant.service.domain.entity.Product;
 import in.yayd.era.food.ordering.project.restaurant.service.domain.entity.Restaurant;
+import in.yayd.era.food.ordering.project.restaurant.service.domain.event.OrderApprovalEvent;
+import in.yayd.era.food.ordering.project.restaurant.service.domain.outbox.model.OrderEventPayload;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
@@ -32,6 +34,16 @@ public class RestaurantDataMapper {
                                 .orderStatus(OrderStatus.valueOf(restaurantApprovalRequest.getRestaurantOrderStatus().name()))
                                 .build()
                 )
+                .build();
+    }
+
+    public OrderEventPayload orderApprovalEventToOrderEventPayload(OrderApprovalEvent orderApprovalEvent) {
+        return OrderEventPayload.builder()
+                .orderId(orderApprovalEvent.getOrderApproval().getOrderId().getValue().toString())
+                .restaurantId(orderApprovalEvent.getRestaurantId().getValue().toString())
+                .orderApprovalStatus(orderApprovalEvent.getOrderApproval().getOrderApprovalStatus().name())
+                .createdAt(orderApprovalEvent.getCreatedAt())
+                .failureMessages(orderApprovalEvent.getFailureMessages())
                 .build();
     }
 }
