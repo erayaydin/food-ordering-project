@@ -3,6 +3,7 @@ package in.yayd.era.food.ordering.project.order.service.messaging.mapper;
 import in.yayd.era.food.ordering.project.domain.valueobject.OrderApprovalStatus;
 import in.yayd.era.food.ordering.project.domain.valueobject.PaymentStatus;
 import in.yayd.era.food.ordering.project.kafka.order.avro.model.*;
+import in.yayd.era.food.ordering.project.order.service.domain.dto.message.CustomerModel;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.message.PaymentResponse;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.message.RestaurantApprovalResponse;
 import in.yayd.era.food.ordering.project.order.service.domain.entity.Order;
@@ -81,6 +82,15 @@ public class OrderMessagingDataMapper {
                 )
                 .setPrice(orderApprovalEventPayload.getPrice())
                 .setCreatedAt(orderApprovalEventPayload.getCreatedAt().toInstant())
+                .build();
+    }
+
+    public CustomerModel customerAvroModelToCustomerModel(CustomerAvroModel customerAvroModel) {
+        return CustomerModel.builder()
+                .id(customerAvroModel.getId())
+                .username(customerAvroModel.getUsername())
+                .firstName(customerAvroModel.getFirstName())
+                .lastName(customerAvroModel.getLastName())
                 .build();
     }
 

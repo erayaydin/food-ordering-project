@@ -1,9 +1,7 @@
 package in.yayd.era.food.ordering.project.order.service.domain;
 
 import in.yayd.era.food.ordering.project.order.service.domain.dto.message.PaymentResponse;
-import in.yayd.era.food.ordering.project.order.service.domain.entity.Order;
-import in.yayd.era.food.ordering.project.order.service.domain.event.OrderPaidEvent;
-import in.yayd.era.food.ordering.project.order.service.domain.ports.input.service.message.listener.payment.PaymentResponseMessageListener;
+import in.yayd.era.food.ordering.project.order.service.domain.ports.input.message.listener.payment.PaymentResponseMessageListener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;

@@ -4,11 +4,9 @@ import in.yayd.era.food.ordering.project.domain.valueobject.*;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.create.CreateOrderCommand;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.create.CreateOrderResponse;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.create.OrderAddress;
+import in.yayd.era.food.ordering.project.order.service.domain.dto.message.CustomerModel;
 import in.yayd.era.food.ordering.project.order.service.domain.dto.track.TrackOrderResponse;
-import in.yayd.era.food.ordering.project.order.service.domain.entity.Order;
-import in.yayd.era.food.ordering.project.order.service.domain.entity.OrderItem;
-import in.yayd.era.food.ordering.project.order.service.domain.entity.Product;
-import in.yayd.era.food.ordering.project.order.service.domain.entity.Restaurant;
+import in.yayd.era.food.ordering.project.order.service.domain.entity.*;
 import in.yayd.era.food.ordering.project.order.service.domain.event.OrderCancelledEvent;
 import in.yayd.era.food.ordering.project.order.service.domain.event.OrderCreatedEvent;
 import in.yayd.era.food.ordering.project.order.service.domain.event.OrderPaidEvent;
@@ -97,6 +95,15 @@ public class OrderDataMapper {
                 .price(orderPaidEvent.getOrder().getPrice().getAmount())
                 .createdAt(orderPaidEvent.getCreatedAt())
                 .build();
+    }
+
+    public Customer customerModelToCustomer(CustomerModel customerModel) {
+        return new Customer(
+                new CustomerId(UUID.fromString(customerModel.getId())),
+                customerModel.getUsername(),
+                customerModel.getFirstName(),
+                customerModel.getLastName()
+        );
     }
 
     private List<OrderItem> orderItemsToOrderItemEntities(List<in.yayd.era.food.ordering.project.order.service.domain.dto.create.OrderItem> orderItems) {

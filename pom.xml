@@ -110,6 +110,33 @@
                 <artifactId>restaurant-messaging</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <!-- Customer -->
+            <dependency>
+                <groupId>in.yayd.era.food.ordering.project</groupId>
+                <artifactId>customer-domain-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>in.yayd.era.food.ordering.project</groupId>
+                <artifactId>customer-application-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>in.yayd.era.food.ordering.project</groupId>
+                <artifactId>customer-application</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>in.yayd.era.food.ordering.project</groupId>
+                <artifactId>customer-data-access</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>in.yayd.era.food.ordering.project</groupId>
+                <artifactId>customer-messaging</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <!-- Common -->
             <dependency>
                 <groupId>in.yayd.era.food.ordering.project</groupId>
                 <artifactId>common-domain</artifactId>
